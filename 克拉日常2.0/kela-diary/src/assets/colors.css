@@ -1,0 +1,206 @@
+/* 统一色彩系统 - 全局CSS变量 */
+:root {
+  /* 主色调 */
+  --primary-color: #409eff;
+  --primary-light: #79bbff;
+  --primary-dark: #337ecc;
+  
+  /* 成功色 */
+  --success-color: #4CAF50;
+  --success-light: #67c23a;
+  --success-dark: #45a049;
+  
+  /* 警告色 */
+  --warning-color: #e6a23c;
+  --warning-light: #f0c78a;
+  --warning-dark: #cf9236;
+  
+  /* 错误色 */
+  --error-color: #f56c6c;
+  --error-light: #f78989;
+  --error-dark: #dd6161;
+  
+  /* 信息色 */
+  --info-color: #909399;
+  --info-light: #b1b3b8;
+  --info-dark: #82848a;
+  
+  /* 白色透明度系列 */
+  --white-alpha-5: rgba(255, 255, 255, 0.05);
+  --white-alpha-8: rgba(255, 255, 255, 0.08);
+  --white-alpha-10: rgba(255, 255, 255, 0.1);
+  --white-alpha-12: rgba(255, 255, 255, 0.12);
+  --white-alpha-15: rgba(255, 255, 255, 0.15);
+  --white-alpha-18: rgba(255, 255, 255, 0.18);
+  --white-alpha-20: rgba(255, 255, 255, 0.2);
+  --white-alpha-25: rgba(255, 255, 255, 0.25);
+  --white-alpha-30: rgba(255, 255, 255, 0.3);
+  --white-alpha-40: rgba(255, 255, 255, 0.4);
+  --white-alpha-50: rgba(255, 255, 255, 0.5);
+  --white-alpha-60: rgba(255, 255, 255, 0.6);
+  --white-alpha-65: rgba(255, 255, 255, 0.65);
+  --white-alpha-70: rgba(255, 255, 255, 0.7);
+  --white-alpha-80: rgba(255, 255, 255, 0.8);
+  --white-alpha-90: rgba(255, 255, 255, 0.9);
+  
+  /* 黑色透明度系列 */
+  --black-alpha-5: rgba(0, 0, 0, 0.05);
+  --black-alpha-8: rgba(0, 0, 0, 0.08);
+  --black-alpha-10: rgba(0, 0, 0, 0.1);
+  --black-alpha-12: rgba(0, 0, 0, 0.12);
+  --black-alpha-15: rgba(0, 0, 0, 0.15);
+  --black-alpha-20: rgba(0, 0, 0, 0.2);
+  --black-alpha-25: rgba(0, 0, 0, 0.25);
+  --black-alpha-30: rgba(0, 0, 0, 0.3);
+  --black-alpha-40: rgba(0, 0, 0, 0.4);
+  --black-alpha-50: rgba(0, 0, 0, 0.5);
+  
+  /* 文本颜色 */
+  --text-primary: #ffffff;
+  --text-secondary: var(--white-alpha-80);
+  --text-tertiary: var(--white-alpha-70);
+  --text-disabled: var(--white-alpha-60);
+  --text-placeholder: var(--white-alpha-65);
+  
+  /* 背景颜色 */
+  --bg-primary: var(--white-alpha-10);
+  --bg-secondary: var(--white-alpha-8);
+  --bg-tertiary: var(--white-alpha-5);
+  --bg-hover: var(--white-alpha-15);
+  --bg-active: var(--white-alpha-20);
+  --bg-disabled: var(--white-alpha-5);
+  
+  /* 边框颜色 */
+  --border-primary: var(--white-alpha-20);
+  --border-secondary: var(--white-alpha-15);
+  --border-tertiary: var(--white-alpha-12);
+  --border-hover: var(--white-alpha-30);
+  --border-active: var(--white-alpha-40);
+  
+  /* 阴影 */
+  --shadow-xs: 0 1px 3px var(--black-alpha-5);
+  --shadow-sm: 0 2px 8px var(--black-alpha-8);
+  --shadow-md: 0 4px 16px var(--black-alpha-10);
+  --shadow-lg: 0 6px 20px var(--black-alpha-10);
+  --shadow-xl: 0 8px 28px var(--black-alpha-15);
+  --shadow-2xl: 0 12px 40px var(--black-alpha-8);
+  --shadow-3xl: 0 20px 64px var(--black-alpha-20);
+  
+  /* 特殊效果阴影 */
+  --shadow-primary: 0 6px 20px rgba(64, 158, 255, 0.3);
+  --shadow-success: 0 6px 20px rgba(76, 175, 80, 0.3);
+  --shadow-warning: 0 6px 20px rgba(230, 162, 60, 0.3);
+  --shadow-error: 0 6px 20px rgba(245, 108, 108, 0.3);
+  
+  /* 内阴影 */
+  --shadow-inset: inset 0 2px 4px var(--black-alpha-10);
+  --shadow-inset-lg: inset 0 4px 8px var(--black-alpha-15);
+  
+  /* 发光效果 */
+  --glow-primary: 0 0 20px rgba(64, 158, 255, 0.4);
+  --glow-success: 0 0 20px rgba(76, 175, 80, 0.4);
+  --glow-warning: 0 0 20px rgba(230, 162, 60, 0.4);
+  --glow-error: 0 0 20px rgba(245, 108, 108, 0.4);
+  
+  /* 过渡动画 */
+  --transition-fast: all 0.2s ease;
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* 动画时长 */
+  --duration-fast: 0.15s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.5s;
+  --duration-slower: 0.8s;
+  
+  /* 缓动函数 */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-back: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-elastic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* 变换效果 */
+  --transform-hover: translateY(-2px) scale(1.02);
+  --transform-active: translateY(-1px) scale(1.01);
+  --transform-focus: scale(1.05);
+  
+  /* 圆角 */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 50%;
+  
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  
+  /* 模糊效果 */
+  --blur-xs: blur(2px);
+  --blur-sm: blur(10px);
+  --blur-md: blur(20px);
+  --blur-lg: blur(25px);
+  --blur-xl: blur(30px);
+  --blur-2xl: blur(40px);
+  --blur-3xl: blur(60px);
+  
+  /* 背景模糊 */
+  --backdrop-blur-sm: blur(8px);
+  --backdrop-blur-md: blur(16px);
+  --backdrop-blur-lg: blur(24px);
+  --backdrop-blur-xl: blur(32px);
+}
+
+/* 主题色彩变量 - 可被主题系统覆盖 */
+:root {
+  --theme-primary: var(--primary-color);
+  --theme-secondary: var(--primary-light);
+  --theme-success: var(--success-color);
+  --theme-warning: var(--warning-color);
+  --theme-error: var(--error-color);
+  --theme-info: var(--info-color);
+}
+
+/* 组件特定颜色 */
+:root {
+  /* 按钮颜色 */
+  --btn-primary-bg: var(--theme-primary);
+  --btn-primary-hover: var(--primary-dark);
+  --btn-success-bg: var(--theme-success);
+  --btn-success-hover: var(--success-dark);
+  
+  /* 输入框颜色 */
+  --input-bg: var(--white-alpha-12);
+  --input-border: var(--border-primary);
+  --input-hover-bg: var(--white-alpha-18);
+  --input-focus-bg: var(--white-alpha-20);
+  --input-focus-border: var(--border-active);
+  
+  /* 卡片颜色 */
+  --card-bg: var(--bg-primary);
+  --card-border: var(--border-secondary);
+  --card-hover-bg: var(--bg-hover);
+  --card-shadow: var(--shadow-lg);
+  
+  /* 侧边栏颜色 */
+  --sidebar-bg: var(--white-alpha-10);
+  --sidebar-border: var(--border-primary);
+  --sidebar-item-hover: var(--bg-hover);
+  --sidebar-item-active: var(--bg-active);
+  
+  /* 导航栏颜色 */
+  --navbar-bg: var(--white-alpha-10);
+  --navbar-border: var(--border-primary);
+  --navbar-button-bg: var(--white-alpha-10);
+  --navbar-button-hover: var(--white-alpha-20);
+}
