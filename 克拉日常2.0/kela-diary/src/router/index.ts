@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // 懒加载路由组件
+// 首页相关页面
+const EnhancedHomeView = () => import('../views/EnhancedHomeView.vue')
 const NotesView = () => import('../views/NotesView.vue')
 const TodosView = () => import('../views/TodosView.vue')
 const SearchView = () => import('../views/SearchView.vue')
 const NoteEditor = () => import('../views/NoteEditor.vue')
 const PomodoroView = () => import('../views/PomodoroView.vue')
 const AIView = () => import('../views/AIView.vue')
+const CalendarView = () => import('../views/CalendarView.vue')
 
 // 项目管理相关页面
 const LoginPage = () => import('../views/project/LoginPage.vue')
@@ -19,6 +22,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: EnhancedHomeView,
+    },
+    {
+      path: '/notes',
       name: 'notes',
       component: NotesView,
     },
@@ -53,6 +61,11 @@ const router = createRouter({
       path: '/ai',
       name: 'ai',
       component: AIView
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: CalendarView
     },
     // 项目管理路由
     {

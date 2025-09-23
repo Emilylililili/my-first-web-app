@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { 
-  Document, 
-  List, 
-  Plus, 
+import {
+  Document,
+  List,
+  Plus,
   Filter,
   TrendCharts,
   Calendar,
@@ -13,7 +13,8 @@ import {
   VideoPlay,
   Timer,
   ChatDotRound,
-  Management
+  Management,
+  Date
 } from '@element-plus/icons-vue'
 import { useNotesStore } from '../stores/notes'
 import { useTodosStore } from '../stores/todos'
@@ -29,6 +30,7 @@ const currentPage = computed(() => {
   if (route.path.includes('todos')) return 'todos'
   if (route.path.includes('pomodoro')) return 'pomodoro'
   if (route.path.includes('ai')) return 'ai'
+  if (route.path.includes('calendar')) return 'calendar'
   if (route.path.includes('dashboard') || route.path.includes('board') || route.path.includes('login') || route.path.includes('register')) return 'project'
   return 'notes'
 })
@@ -85,6 +87,8 @@ const switchPage = (page: string) => {
     router.push('/pomodoro')
   } else if (page === 'ai') {
     router.push('/ai')
+  } else if (page === 'calendar') {
+    router.push('/calendar')
   } else if (page === 'project') {
     router.push('/dashboard')
   } else {
@@ -139,7 +143,7 @@ const createNewNote = () => {
             @click="switchPage('pomodoro')"
             class="tab-card"
           />
-          <SidebarCard 
+          <SidebarCard
             :icon="ChatDotRound"
             title="AI对话"
             :variant="currentPage === 'ai' ? 'primary' : 'secondary'"
@@ -147,7 +151,15 @@ const createNewNote = () => {
             @click="switchPage('ai')"
             class="tab-card"
           />
-          <SidebarCard 
+          <SidebarCard
+            :icon="Date"
+            title="日历"
+            :variant="currentPage === 'calendar' ? 'primary' : 'secondary'"
+            :glow-color="currentPage === 'calendar' ? 'rgba(168, 85, 247, 0.8)' : 'rgba(255, 255, 255, 0.8)'"
+            @click="switchPage('calendar')"
+            class="tab-card"
+          />
+          <SidebarCard
             :icon="Management"
             title="项目管理"
             :variant="currentPage === 'project' ? 'primary' : 'secondary'"
