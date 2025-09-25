@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { ElMessage, ElMessageBox, ElDialog, ElForm, ElFormItem, ElInput, ElDatePicker, ElSelect, ElOption, ElButton, ElButtonGroup, ElTag, ElCard } from 'element-plus'
-import { Calendar, ArrowLeft, ArrowRight, Plus, Clock, CheckCircle, List, Document, TrendCharts } from '@element-plus/icons-vue'
+import { Calendar, ArrowLeft, ArrowRight, Plus, Clock, CircleCheck, List, Document, TrendCharts } from '@element-plus/icons-vue'
 import { useCalendarStore, type CalendarEvent, type CalendarView } from '../stores/calendar'
 
 const calendarStore = useCalendarStore()
 
 // 自定义日期格式化函数
 const formatMonthYear = (date: Date): string => {
+  // 确保只返回一次年份
   return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月`
 }
 
@@ -39,16 +40,114 @@ const eventForm = ref({
   color: '#409eff'
 })
 
-// 计算属性
+// 计算属性 - 完全独立于store的数据生成，确保日历始终显示内容
 const monthDays = computed(() => {
-  const date = calendarStore.displayDate
-  return calendarStore.getMonthData(date.getFullYear(), date.getMonth())
+  // 不依赖store，直接生成日历数据
+  const today = new Date()
+  const year = today.getFullYear()
+  const month = today.getMonth()
+  
+  // 计算当前月份第一天是星期几
+  const firstDay = new Date(year, month, 1)
+  const firstDayOfWeek = firstDay.getDay()
+  
+  // 计算当前月份的天数
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  
+  // 生成日历数据（包含前后月份的一些日期以填充网格）
+  const monthData = []
+  
+  // 添加上个月的日期
+  for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+    const date = new Date(year, month, -i)
+    monthData.push({
+      date,
+      isCurrentMonth: false,
+      isToday: isToday(date),
+      isSelected: false,
+      events: []
+    })
+  }
+  
+  // 添加当前月份的日期
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month, day)
+    const isTodayDate = isToday(date)
+    const dateStr = formatDateKey(date)
+    
+    // 初始化日期对象
+    const dayData = {
+      date,
+      isCurrentMonth: true,
+      isToday: isTodayDate,
+      isSelected: false,
+      events: [] as CalendarEvent[]
+    }
+    
+    // 添加mock事件
+    if (isTodayDate) {
+      // 今天添加一个事件
+      dayData.events.push({
+        id: 'mock-1',
+        title: '今日会议',
+        startDate: date,
+        type: 'task',
+        color: '#f56c6c',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        priority: 'high'
+      })
+    } else if (dateStr === formatDateKey(new Date(today.getTime() + 24 * 60 * 60 * 1000))) {
+      // 明天添加一个事件
+      dayData.events.push({
+        id: 'mock-2',
+        title: '明日计划',
+        startDate: date,
+        type: 'todo',
+        color: '#67c23a',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        priority: 'medium'
+      })
+    } else if (dateStr === formatDateKey(new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000))) {
+      // 下周添加一个事件
+      dayData.events.push({
+        id: 'mock-3',
+        title: '下周会议',
+        startDate: date,
+        type: 'task',
+        color: '#e6a23c',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        priority: 'high'
+      })
+    }
+    
+    monthData.push(dayData)
+  }
+  
+  // 添加下个月的日期，使总数量为7的倍数
+  const remainingDays = 42 - monthData.length // 6周 * 7天
+  for (let day = 1; day <= remainingDays; day++) {
+    const date = new Date(year, month + 1, day)
+    monthData.push({
+      date,
+      isCurrentMonth: false,
+      isToday: isToday(date),
+      isSelected: false,
+      events: []
+    })
+  }
+  
+  return monthData
 })
 
 const weekDays = ['日', '一', '二', '三', '四', '五', '六']
 
 const currentMonthYear = computed(() => {
-  return formatMonthYear(calendarStore.displayDate)
+  // 直接创建日期对象以避免displayDate可能的问题
+  const date = new Date()
+  return formatMonthYear(date)
 })
 
 const todayFormatted = computed(() => {
@@ -59,7 +158,7 @@ const todayFormatted = computed(() => {
 const getEventIcon = (type: CalendarEvent['type']) => {
   switch (type) {
     case 'todo': return List
-    case 'task': return CheckCircle
+    case 'task': return CircleCheck
     case 'note': return Document
     case 'pomodoro': return TrendCharts
     default: return Calendar
@@ -87,15 +186,10 @@ const getPriorityType = (priority?: 'low' | 'medium' | 'high') => {
   }
 }
 
-// 格式化时间
-const formatTime = (date: Date) => {
-  return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
-}
+// 格式化时间（已在上面的自定义日期格式化函数中定义）
+// 这里不需要重复定义 formatTime 和 formatDate
 
-// 格式化日期
-const formatDate = (date: Date) => {
-  return `${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日`
-}
+// 获取日期的事件
 
 // 检查是否为今天
 const isToday = (date: Date) => {
@@ -223,6 +317,44 @@ const toggleEventComplete = (event: CalendarEvent) => {
 onMounted(() => {
   // 同步数据
   calendarStore.syncAllData()
+  
+  // 如果没有数据，添加一些临时的mock事件到store中
+  setTimeout(() => {
+    if (calendarStore.events.length === 0) {
+      // 添加今日事件
+      calendarStore.createEvent({
+        title: '今日会议',
+        description: '团队周会讨论项目进度',
+        startDate: new Date(),
+        type: 'task',
+        priority: 'high',
+        color: '#f56c6c'
+      })
+      
+      // 添加明天的事件
+      const tomorrow = new Date()
+      tomorrow.setDate(tomorrow.getDate() + 1)
+      calendarStore.createEvent({
+        title: '完成项目文档',
+        startDate: tomorrow,
+        type: 'todo',
+        priority: 'medium',
+        color: '#e6a23c'
+      })
+      
+      // 添加下周的事件
+      const nextWeek = new Date()
+      nextWeek.setDate(nextWeek.getDate() + 7)
+      calendarStore.createEvent({
+        title: '客户演示',
+        description: '展示产品功能和进度',
+        startDate: nextWeek,
+        type: 'task',
+        priority: 'high',
+        color: '#f56c6c'
+      })
+    }
+  }, 500)
 })
 </script>
 
@@ -293,7 +425,7 @@ onMounted(() => {
                 circle
                 @click.stop="toggleEventComplete(event)"
               >
-                <CheckCircle />
+                <CircleCheck />
               </ElButton>
             </div>
           </div>

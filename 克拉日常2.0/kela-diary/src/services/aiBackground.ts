@@ -51,7 +51,7 @@ export async function generateDynamicTheme(prompt: string, model: AiModel): Prom
     max_tokens: 500
   }
 
-  const res = await fetch('/openrouter', {
+  const res = await fetch('/api/openrouter', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)

@@ -13,8 +13,7 @@ import {
   VideoPlay,
   Timer,
   ChatDotRound,
-  Management,
-  Date
+  Management
 } from '@element-plus/icons-vue'
 import { useNotesStore } from '../stores/notes'
 import { useTodosStore } from '../stores/todos'
@@ -152,7 +151,7 @@ const createNewNote = () => {
             class="tab-card"
           />
           <SidebarCard
-            :icon="Date"
+            :icon="Calendar"
             title="日历"
             :variant="currentPage === 'calendar' ? 'primary' : 'secondary'"
             :glow-color="currentPage === 'calendar' ? 'rgba(168, 85, 247, 0.8)' : 'rgba(255, 255, 255, 0.8)'"

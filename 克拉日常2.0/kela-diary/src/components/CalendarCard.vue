@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { Date } from '@element-plus/icons-vue'
+import { Calendar } from '@element-plus/icons-vue'
 import { useCalendarStore } from '../stores/calendar'
 
 const router = useRouter()
@@ -56,7 +56,7 @@ onMounted(() => {
     <!-- 卡片头部 -->
     <div class="card-header">
       <div class="card-icon">
-        <Date />
+        <component :is="Calendar" class="icon-component" />
       </div>
       <div class="card-title-section">
         <h3 class="card-title">日历</h3>
@@ -70,7 +70,7 @@ onMounted(() => {
     <!-- 今日事件 -->
     <div v-if="todayEvents.length > 0" class="today-events">
       <div class="section-title">今日事件</div>
-      <div class="event-list"
+      <div class="event-list">
         <div
           v-for="event in todayEvents.slice(0, 2)"
           :key="event.id"
@@ -145,16 +145,22 @@ onMounted(() => {
 }
 
 .card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(139, 92, 246, 0.8));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.2rem;
-}
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.8), rgba(139, 92, 246, 0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  /* 统一 Element Plus 图标内部 svg 尺寸，确保与其他图标一致 */
+  .icon-component :deep(svg) {
+    width: 24px;
+    height: 24px;
+  }
 
 .card-title-section {
   flex: 1;

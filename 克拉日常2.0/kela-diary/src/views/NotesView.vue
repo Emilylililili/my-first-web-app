@@ -104,7 +104,11 @@ const formatDate = (date: Date | string) => {
 
 // 截取内容预览
 const getContentPreview = (content: string, maxLength = 100) => {
-  const plainText = content.replace(/[#*`>\-\+]/g, '').trim()
+  // 首先移除HTML标签
+  let plainText = content.replace(/<[^>]*>/g, '').trim()
+  // 然后移除Markdown标记
+  plainText = plainText.replace(/[#*`>\-\+]/g, '').trim()
+  // 最后截取适当长度的文本
   return plainText.length > maxLength 
     ? plainText.substring(0, maxLength) + '...' 
     : plainText
